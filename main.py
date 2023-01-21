@@ -1,4 +1,5 @@
 import codecs
+import urllib
 from io import StringIO
 from typing import List
 from lxml import etree
@@ -53,10 +54,13 @@ def load_html():
     html_stream = codecs.open("sample-html.html", "r")
     html = html_stream.read()
 
-    x_paths = generate_xpath_query(attribute_id="123456", html=html)
+    # Fetch sample HTML file
+    with urllib.request.urlopen("https://dl.dropbox.com/s/u0a8b8o3x86i9id/sample-html-v2.html") as file:
+        html: str = file.read().decode("utf-8")
+        x_paths = generate_xpath_query("123456", html)
 
-    print("\nX Paths array:")
-    print(x_paths, "\n")
+        print("\nX Paths array:")
+        print(x_paths, "\n")
 
 
 if __name__ == "__main__":
